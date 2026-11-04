@@ -1,4 +1,4 @@
-package com.krmall50.service;
+package com.krmall50.repo;
 
 import java.util.List;
 
