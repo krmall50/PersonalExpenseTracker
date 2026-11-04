@@ -1,15 +1,16 @@
 package com.krmall50.repo;
 
+import java.sql.SQLException;
 import java.util.List;
 
 interface Repository<T, ID> {
-    void findById(ID id);
+    void findById(ID id) throws SQLException;
 
-    List<T> findAll();
+    List<T> findAll() throws SQLException;
 
-    void add(T entity);
+    int add(T entity) throws SQLException;
 
-    void update(T entity);
+    void update(T entity) throws SQLException;
 
-    void delete(T entity);
+    void delete(T entity) throws SQLException;
 }
