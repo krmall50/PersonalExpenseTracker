@@ -23,7 +23,6 @@ public class DatabaseConfig {
 
         dataSource = new HikariDataSource(config);
         return dataSource;
-
     }
 
     public static DataSource getDataSourceTest() {
