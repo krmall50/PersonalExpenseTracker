@@ -27,8 +27,9 @@ public class Main {
         CategoryService cs = new CategoryService(repoC);
         ExpenseService es = new ExpenseService(repoE);
         cs.addCategory(category);
-        es.addExpense(expense);
+        // es.addExpense(expense);
 
+        es.deleteExpense(-1);
         cs.deleteCategory(1);
     }
 }

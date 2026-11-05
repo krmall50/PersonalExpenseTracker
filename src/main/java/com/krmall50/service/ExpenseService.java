@@ -32,4 +32,17 @@ public class ExpenseService {
             System.out.println("Category with id " + expense.getCategoryId() + " does not exist.");
         }
     }
+
+    public void deleteExpense(int id) {
+        try {
+            int rows = repo.delete(id);
+            if (rows == 1) {
+                System.out.println("Expense with id " + id + " was deleted.");
+            } else {
+                System.out.println("Expense with id " + id + " does not exist.");
+            }
+        } catch (SQLException e) {
+            System.out.println("Couldn't delete expense.");
+        }
+    }
 }
