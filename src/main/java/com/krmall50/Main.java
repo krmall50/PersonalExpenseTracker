@@ -29,5 +29,6 @@ public class Main {
         cs.addCategory(category);
         es.addExpense(expense);
 
+        cs.deleteCategory(1);
     }
 }
