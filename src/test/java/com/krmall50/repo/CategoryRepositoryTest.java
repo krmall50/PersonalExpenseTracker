@@ -88,4 +88,12 @@ public class CategoryRepositoryTest {
         int result = repo.findAll().size();
         assertEquals(2, result);
     }
+
+    @Test
+    void findByIdTest() throws SQLException {
+        Category category = new Category("test", "test description");
+        int idExpected = repo.add(category);
+        int idActual = repo.findById(idExpected).getId();
+        assertEquals(idExpected, idActual);
+    }
 }

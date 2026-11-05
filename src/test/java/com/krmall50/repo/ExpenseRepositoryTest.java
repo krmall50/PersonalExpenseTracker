@@ -56,4 +56,85 @@ public class ExpenseRepositoryTest {
             repoExpense.add(expense);
         });
     }
+
+    @Test
+    void findByIdTest() throws SQLException {
+        LocalDate date = LocalDate.now();
+        BigDecimal amount = new BigDecimal(123);
+        Category category = new Category("test", "test description");
+        int Categoryid = categoryRepository.add(category);
+
+        Expense expense = new Expense("test description", amount, date, Categoryid);
+        int idExpected = repoExpense.add(expense);
+        int idActual = repoExpense.findById(idExpected).getId();
+        assertEquals(idExpected, idActual);
+    }
+
+    @Test
+    void updateTest() throws SQLException {
+        LocalDate date = LocalDate.now();
+        BigDecimal amount = new BigDecimal(123);
+        Category category = new Category("test", "test description");
+        int Categoryid = categoryRepository.add(category);
+
+        Expense expense = new Expense("test description", amount, date, Categoryid);
+        repoExpense.add(expense);
+        expense.setdescription("updated");
+        expense.setAmount(new BigDecimal(124));
+        int result = repoExpense.update(expense);
+
+        assertEquals(result, 1);
+    }
+
+    @Test
+    void updateNonExistingTest() throws SQLException {
+        LocalDate date = LocalDate.now();
+        BigDecimal amount = new BigDecimal(123);
+        Category category = new Category("test", "test description");
+        int Categoryid = categoryRepository.add(category);
+
+        Expense expense = new Expense("test description", amount, date, Categoryid);
+        expense.setdescription("updated");
+        expense.setAmount(new BigDecimal(124));
+        int result = repoExpense.update(expense);
+
+        assertEquals(0, result);
+    }
+
+    @Test
+    void deleteTest() throws SQLException {
+        LocalDate date = LocalDate.now();
+        BigDecimal amount = new BigDecimal(123);
+        Category category = new Category("test", "test description");
+        int Categoryid = categoryRepository.add(category);
+
+        Expense expense = new Expense("test description", amount, date, Categoryid);
+        int id = repoExpense.add(expense);
+        int result = repoExpense.delete(id);
+
+        assertEquals(1, result);
+    }
+
+    @Test
+    void deleteNonExistingTest() throws SQLException {
+        int rows = repoExpense.delete(1);
+        assertEquals(0, rows);
+    }
+
+    @Test
+    void findAllTest() throws SQLException {
+        LocalDate date = LocalDate.now();
+        BigDecimal amount = new BigDecimal(123);
+        Category category = new Category("test", "test description");
+        int Categoryid = categoryRepository.add(category);
+
+        Expense expense = new Expense("test description", amount, date, Categoryid);
+        Expense expense1 = new Expense("test1 description", amount, date, Categoryid);
+        repoExpense.add(expense);
+        repoExpense.add(expense1);
+
+        int result = repoExpense.findAll().size();
+        assertEquals(2, result);
+    }
+
 }
