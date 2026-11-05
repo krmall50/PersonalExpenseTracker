@@ -87,4 +87,13 @@ public class CategoryRepository implements Repository<Category, Integer> {
             return rows;
         }
     };
+
+    // careful this is for testing only
+    public void clearTable() throws SQLException {
+        String sql = "truncate table categories cascade";
+        try (Connection conn = dataSource.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.executeUpdate();
+        }
+    }
 }
