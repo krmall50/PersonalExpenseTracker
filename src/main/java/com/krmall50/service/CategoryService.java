@@ -28,4 +28,8 @@ public class CategoryService {
             System.out.println("Category with name " + category.getName() + " already exists.");
         }
     }
+
+    public void deleteCategory(int id) {
+
+    }
 }

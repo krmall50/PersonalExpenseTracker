@@ -10,6 +10,7 @@ import com.krmall50.model.Expense;
 import com.krmall50.repo.CategoryRepository;
 import com.krmall50.repo.ExpenseRepository;
 import com.krmall50.service.CategoryService;
+import com.krmall50.service.ExpenseService;
 
 public class Main {
     public static void main(String[] args) {
@@ -21,8 +22,12 @@ public class Main {
 
         Category category = new Category("have fun", "fun");
 
+        Expense expense = new Expense("bought a cake again", amount, date, 1);
+
         CategoryService cs = new CategoryService(repoC);
+        ExpenseService es = new ExpenseService(repoE);
         cs.addCategory(category);
+        es.addExpense(expense);
 
     }
 }
