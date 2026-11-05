@@ -97,4 +97,13 @@ public class ExpenseRepository implements Repository<Expense, Integer> {
             return rows;
         }
     };
+
+    // careful this is for testing only
+    public void clearTable() throws SQLException {
+        String sql = "truncate table expenses cascade";
+        try (Connection conn = dataSource.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.executeUpdate();
+        }
+    }
 }

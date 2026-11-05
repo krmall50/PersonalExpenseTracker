@@ -17,9 +17,9 @@ public class Main {
         CategoryRepository repoC = new CategoryRepository(DatabaseConfig.getDataSource());
         ExpenseRepository repoE = new ExpenseRepository(DatabaseConfig.getDataSource());
         Category category = new Category("c4", "d4");
-        Expense expense = new Expense("car", amount, date, 5);
+        Expense expense = new Expense("asdfs", amount, date, 51);
         try {
-            // repo.add(category);
+            repoE.add(expense);
             // Category updatecategory = repo.findById(4);
             // System.out.println(updatecategory.getId());
             // updatecategory.setName("updatedName4");
@@ -35,8 +35,9 @@ public class Main {
             // int rows = repoE.add(expense);
             // System.out.println(rows);
             // System.out.println(repoE.findById(1).getDescription());
-            repoE.findAll().stream()
-                    .forEach(s -> System.out.println(s.getId() + " " + s.getDescription() + " " + s.getAmount()));
+            // repoE.findAll().stream()
+            // .forEach(s -> System.out.println(s.getId() + " " + s.getDescription() + " " +
+            // s.getAmount()));
         } catch (SQLException e) {
             e.printStackTrace();
         }
