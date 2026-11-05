@@ -29,9 +29,9 @@ public class CategoryRepository implements Repository<Category, Integer> {
             if (rs.next()) {
                 Category category = new Category(id, rs.getString("name"), rs.getString("description"));
                 return category;
-            } else {
-                return null;
             }
+            return null;
+
         }
     };
 
@@ -56,13 +56,13 @@ public class CategoryRepository implements Repository<Category, Integer> {
                 PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, entity.getName());
             ps.setString(2, entity.getDescription());
-            int rows = ps.executeUpdate();
+            ps.executeUpdate();
 
             try (ResultSet rs = ps.getGeneratedKeys()) {
                 if (rs.next())
                     entity.setId(rs.getInt("id"));
             }
-            return rows;
+            return entity.getId();
         }
     };
 

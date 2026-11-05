@@ -8,7 +8,22 @@ public class Expense {
     private String description;
     private BigDecimal amount;
     private LocalDate date;
-    private Category category;
+    private int categoryId;
+
+    public Expense(int id, String description, BigDecimal amount, LocalDate date, int categoryId) {
+        this.id = id;
+        this.description = description;
+        this.amount = amount;
+        this.date = date;
+        this.categoryId = categoryId;
+    }
+
+    public Expense(String description, BigDecimal amount, LocalDate date, int categoryId) {
+        this.description = description;
+        this.amount = amount;
+        this.date = date;
+        this.categoryId = categoryId;
+    }
 
     public int getId() {
         return id;
@@ -26,8 +41,8 @@ public class Expense {
         return amount;
     }
 
-    public Category getCategory() {
-        return category;
+    public int getCategoryId() {
+        return categoryId;
     }
 
     public void setId(int id) {
@@ -50,9 +65,9 @@ public class Expense {
             this.amount = amount;
     }
 
-    public void setCategory(Category category) {
-        if (!category.equals(null))
-            this.category = category;
+    public void setCategoryId(int categoryId) {
+        if (categoryId >= 0)
+            this.categoryId = categoryId;
     }
 
 }
