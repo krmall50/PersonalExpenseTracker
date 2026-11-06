@@ -20,16 +20,17 @@ public class Main {
         CategoryRepository repoC = new CategoryRepository(DatabaseConfig.getDataSource());
         ExpenseRepository repoE = new ExpenseRepository(DatabaseConfig.getDataSource());
 
-        Category category = new Category("have fun", "fun");
+        Category category = new Category(10, "have fun 2", "fun");
+        category.setName(null);
+        category.setdescription(null);
 
         Expense expense = new Expense("bought a cake again", amount, date, 1);
 
         CategoryService cs = new CategoryService(repoC);
         ExpenseService es = new ExpenseService(repoE);
-        cs.addCategory(category);
+        // cs.addCategory(category);
         // es.addExpense(expense);
+        cs.updateCategory(category);
 
-        es.deleteExpense(-1);
-        cs.deleteCategory(1);
     }
 }

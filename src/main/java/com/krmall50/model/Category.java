@@ -38,7 +38,7 @@ public class Category {
     }
 
     public void setName(String name) {
-        if (!name.equals(null))
+        if (name != null)
             this.name = name;
     }
 }

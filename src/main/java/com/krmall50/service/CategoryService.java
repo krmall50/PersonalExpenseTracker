@@ -64,4 +64,25 @@ public class CategoryService {
             return null;
         }
     }
+
+    public void updateCategory(Category category) {
+        if (category.getName() == null) {
+            System.out.println("Category name cannot be null");
+            return;
+        }
+        if (category.getName().length() > 100) {
+            System.out.println("Category name cannot be over 100 characters.");
+            return;
+        }
+        try {
+            int rows = repo.update(category);
+            if (rows == 0) {
+                System.out.println("Category with id " + category.getId() + " does not exist.");
+                return;
+            }
+            System.out.println("Category with id " + category.getId() + " was updated.");
+        } catch (SQLException e) {
+            System.out.println("Category with name " + category.getName() + " already exists.");
+        }
+    }
 }

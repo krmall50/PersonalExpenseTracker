@@ -25,6 +25,10 @@ public class ExpenseService {
             System.out.println("Description cannot be null.");
             return;
         }
+        if (expense.getDescription().length() > 255) {
+            System.out.println("Description cannot be over 255 characters.");
+            return;
+        }
         try {
             int id = repo.add(expense);
             System.out.println("Expense created, id: " + id);
