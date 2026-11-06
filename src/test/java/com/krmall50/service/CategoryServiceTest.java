@@ -64,4 +64,18 @@ public class CategoryServiceTest {
         Integer id = categoryService.deleteCategory(1);
         assertEquals(null, id);
     }
+
+    @Test
+    void findCategoryByIdTest() {
+        Category category = new Category("test", "test");
+        Integer idAdded = categoryService.addCategory(category);
+        Integer idFound = categoryService.findCategoryById(idAdded).getId();
+        assertEquals(idAdded, idFound);
+    }
+
+    @Test
+    void findNonExistingCategoryByIdTest() {
+        Category category = categoryService.findCategoryById(1);
+        assertEquals(null, category);
+    }
 }
