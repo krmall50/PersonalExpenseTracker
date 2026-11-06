@@ -103,4 +103,14 @@ public class CategoryServiceTest {
 
         assertEquals(null, idUpdated);
     }
+
+    @Test
+    void findAllCategoriesTest() {
+        Category category = new Category("test", "test");
+
+        categoryService.addCategory(category);
+        Integer size = categoryService.findAllCategories().size();
+
+        assertEquals(1, size);
+    }
 }
