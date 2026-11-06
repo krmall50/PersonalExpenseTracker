@@ -78,4 +78,29 @@ public class CategoryServiceTest {
         Category category = categoryService.findCategoryById(1);
         assertEquals(null, category);
     }
+
+    @Test
+    void updateCategoryTest() {
+        Category category = new Category("test", "test");
+        Integer idAdded = categoryService.addCategory(category);
+
+        category.setName("updated");
+        category.setdescription("updated");
+
+        Integer idUpdated = categoryService.updateCategory(category);
+
+        assertEquals(idAdded, idUpdated);
+    }
+
+    @Test
+    void updateNonExistingCategoryTest() {
+        Category category = new Category("test", "test");
+
+        category.setName("updated");
+        category.setdescription("updated");
+
+        Integer idUpdated = categoryService.updateCategory(category);
+
+        assertEquals(null, idUpdated);
+    }
 }
