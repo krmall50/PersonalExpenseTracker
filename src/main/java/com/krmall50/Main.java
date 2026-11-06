@@ -20,19 +20,18 @@ public class Main {
         CategoryRepository repoC = new CategoryRepository(DatabaseConfig.getDataSource());
         ExpenseRepository repoE = new ExpenseRepository(DatabaseConfig.getDataSource());
 
-        Category category = new Category(10, "have fun 2", "fun");
+        Category category = new Category("c1", "d1");
+        Category category1 = new Category("c2", "d2");
+        Category category2 = new Category("c3", "d3");
 
-        Expense expense = new Expense("bought a cake again", amount, date, 1);
+        Expense expense = new Expense("e1", amount, date, 21);
+        Expense expense1 = new Expense("e2", amount, date, 21);
+        Expense expense2 = new Expense("e3", amount, date, 22);
 
         CategoryService cs = new CategoryService(repoC);
         ExpenseService es = new ExpenseService(repoE);
-        // cs.addCategory(category);
-        // es.addExpense(expense);
-        // cs.updateCategory(category);
-        cs.deleteCategory(4);
-        cs.deleteCategory(5);
-        // cs.deleteCategory(10);
-        cs.findAllCategories();
+
+        System.out.println(es.findExpenseById(-1));
 
     }
 }

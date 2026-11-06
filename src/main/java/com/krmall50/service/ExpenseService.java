@@ -53,4 +53,22 @@ public class ExpenseService {
             System.out.println("Couldn't delete expense.");
         }
     }
+
+    public Expense findExpenseById(int id) {
+        if (id < 0) {
+            System.out.println("Enter valid id.");
+            return null;
+        }
+        try {
+            Expense expense = repo.findById(id);
+            if (expense == null) {
+                System.out.println("Expense with id " + id + " does not exist.");
+                return null;
+            }
+            return expense;
+        } catch (SQLException e) {
+            System.out.println("Couldn't find expense.");
+            return null;
+        }
+    }
 }
