@@ -1,6 +1,7 @@
 package com.krmall50.service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import com.krmall50.model.Category;
 import com.krmall50.repo.CategoryRepository;
@@ -83,6 +84,20 @@ public class CategoryService {
             System.out.println("Category with id " + category.getId() + " was updated.");
         } catch (SQLException e) {
             System.out.println("Category with name " + category.getName() + " already exists.");
+        }
+    }
+
+    public List<Category> findAllCategories() {
+        try {
+            List<Category> categories = repo.findAll();
+            if (categories.size() == 0) {
+                System.out.println("No categories were added yet.");
+                return null;
+            }
+            return categories;
+        } catch (SQLException e) {
+            System.out.println("Couldn't get all categories");
+            return null;
         }
     }
 }

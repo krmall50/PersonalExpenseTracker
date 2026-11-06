@@ -21,8 +21,6 @@ public class Main {
         ExpenseRepository repoE = new ExpenseRepository(DatabaseConfig.getDataSource());
 
         Category category = new Category(10, "have fun 2", "fun");
-        category.setName(null);
-        category.setdescription(null);
 
         Expense expense = new Expense("bought a cake again", amount, date, 1);
 
@@ -30,7 +28,11 @@ public class Main {
         ExpenseService es = new ExpenseService(repoE);
         // cs.addCategory(category);
         // es.addExpense(expense);
-        cs.updateCategory(category);
+        // cs.updateCategory(category);
+        cs.deleteCategory(4);
+        cs.deleteCategory(5);
+        // cs.deleteCategory(10);
+        cs.findAllCategories();
 
     }
 }
