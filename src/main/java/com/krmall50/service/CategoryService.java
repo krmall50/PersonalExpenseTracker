@@ -30,6 +30,10 @@ public class CategoryService {
     }
 
     public void deleteCategory(int id) {
+        if (id < 0) {
+            System.out.println("Enter valid id.");
+            return;
+        }
         try {
             int rows = repo.delete(id);
             if (rows == 1) {
@@ -41,5 +45,23 @@ public class CategoryService {
             System.out.println("To delete this category, delete its expenses first.");
         }
 
+    }
+
+    public Category findCategoryById(int id) {
+        if (id < 0) {
+            System.out.println("Enter valid id.");
+            return null;
+        }
+        try {
+            Category category = repo.findById(id);
+            if (category == null) {
+                System.out.println("Category with id " + id + " does not exist.");
+                return null;
+            }
+            return category;
+        } catch (SQLException e) {
+            System.out.println("Couldn't find category.");
+            return null;
+        }
     }
 }

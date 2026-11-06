@@ -34,6 +34,10 @@ public class ExpenseService {
     }
 
     public void deleteExpense(int id) {
+        if (id < 0) {
+            System.out.println("Enter valid id.");
+            return;
+        }
         try {
             int rows = repo.delete(id);
             if (rows == 1) {
