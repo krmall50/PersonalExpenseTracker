@@ -13,20 +13,22 @@ public class CategoryService {
         this.repo = repo;
     }
 
-    public void addCategory(Category category) {
+    public Integer addCategory(Category category) {
         if (category.getName() == null) {
             System.out.println("Category name cannot be null.");
-            return;
+            return null;
         }
         if (category.getName().length() > 100) {
             System.out.println("Category name cannot be over 100 characters.");
-            return;
+            return null;
         }
         try {
             int id = repo.add(category);
             System.out.println("Category created, id: " + id);
+            return id;
         } catch (SQLException e) {
             System.out.println("Category with name " + category.getName() + " already exists.");
+            return null;
         }
     }
 
