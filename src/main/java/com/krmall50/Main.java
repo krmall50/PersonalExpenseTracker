@@ -24,14 +24,15 @@ public class Main {
         Category category1 = new Category("c2", "d2");
         Category category2 = new Category("c3", "d3");
 
-        Expense expense = new Expense("e1", amount, date, 21);
+        Expense expense = new Expense(99, "e1", amount, date, 21);
         Expense expense1 = new Expense("e2", amount, date, 21);
         Expense expense2 = new Expense("e3", amount, date, 22);
 
         CategoryService cs = new CategoryService(repoC);
         ExpenseService es = new ExpenseService(repoE);
 
-        es.findAllExpenses().stream().forEach(s -> System.out.println(s.getDescription()));
-
+        expense.setdescription("updated d1 2");
+        expense.setCategoryId(23);
+        es.updateExpense(expense);
     }
 }

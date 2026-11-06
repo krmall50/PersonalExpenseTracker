@@ -86,4 +86,33 @@ public class ExpenseService {
             return null;
         }
     }
+
+    public void updateExpense(Expense expense) {
+        if (expense.getAmount() == null) {
+            System.out.println("Amount cannot be null.");
+            return;
+        }
+        if (expense.getDate() == null) {
+            System.out.println("Date cannot be null.");
+            return;
+        }
+        if (expense.getDescription() == null) {
+            System.out.println("Description cannot be null.");
+            return;
+        }
+        if (expense.getDescription().length() > 255) {
+            System.out.println("Description cannot be over 255 characters.");
+            return;
+        }
+        try {
+            int rows = repo.update(expense);
+            if (rows == 0) {
+                System.out.println("Expense with id " + expense.getId() + " does not exist.");
+                return;
+            }
+            System.out.println("Expense with id " + expense.getId() + " was updated.");
+        } catch (SQLException e) {
+            System.out.println("Category with id " + expense.getCategoryId() + " does not exist.");
+        }
+    }
 }
