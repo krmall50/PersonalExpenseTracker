@@ -32,20 +32,23 @@ public class CategoryService {
         }
     }
 
-    public void deleteCategory(int id) {
+    public Integer deleteCategory(int id) {
         if (id < 0) {
             System.out.println("Enter valid id.");
-            return;
+            return null;
         }
         try {
             int rows = repo.delete(id);
             if (rows == 1) {
                 System.out.println("Category with id " + id + " was deleted.");
+                return id;
             } else {
                 System.out.println("Category with id " + id + " does not exist.");
+                return null;
             }
         } catch (SQLException e) {
             System.out.println("To delete this category, delete its expenses first.");
+            return null;
         }
 
     }

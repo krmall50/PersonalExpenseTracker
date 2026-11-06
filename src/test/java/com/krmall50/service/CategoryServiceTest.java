@@ -1,5 +1,6 @@
 package com.krmall50.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.sql.SQLException;
@@ -45,5 +46,22 @@ public class CategoryServiceTest {
         Integer id = categoryService.addCategory(category1);
 
         assertTrue(id == null);
+    }
+
+    @Test
+    void deleteCategoryTest() {
+        Category category = new Category("test", "test");
+
+        Integer idAdded = categoryService.addCategory(category);
+        Integer idDeleted = categoryService.deleteCategory(idAdded);
+
+        assertEquals(idAdded, idDeleted);
+    }
+
+    @Test
+    void deleteNonExistingCategoryTest() {
+
+        Integer id = categoryService.deleteCategory(1);
+        assertEquals(null, id);
     }
 }
