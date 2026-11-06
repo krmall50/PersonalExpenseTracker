@@ -31,7 +31,7 @@ public class Main {
         CategoryService cs = new CategoryService(repoC);
         ExpenseService es = new ExpenseService(repoE);
 
-        System.out.println(es.findExpenseById(-1));
+        es.findAllExpenses().stream().forEach(s -> System.out.println(s.getDescription()));
 
     }
 }

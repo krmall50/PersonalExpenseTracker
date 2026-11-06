@@ -1,6 +1,7 @@
 package com.krmall50.service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import com.krmall50.model.Expense;
 import com.krmall50.repo.ExpenseRepository;
@@ -68,6 +69,20 @@ public class ExpenseService {
             return expense;
         } catch (SQLException e) {
             System.out.println("Couldn't find expense.");
+            return null;
+        }
+    }
+
+    public List<Expense> findAllExpenses() {
+        try {
+            List<Expense> expenses = repo.findAll();
+            if (expenses.size() == 0) {
+                System.out.println("No expenses were added yet.");
+                return null;
+            }
+            return expenses;
+        } catch (SQLException e) {
+            System.out.println("Couldn't get all expenses");
             return null;
         }
     }
