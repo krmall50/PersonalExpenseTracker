@@ -1,5 +1,6 @@
 package com.krmall50.service;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -114,5 +115,17 @@ public class ExpenseService {
         } catch (SQLException e) {
             System.out.println("Category with id " + expense.getCategoryId() + " does not exist.");
         }
+    }
+
+    public BigDecimal totalExpenses() {
+        List<Expense> expenses = findAllExpenses();
+        double total = 0;
+
+        for (Expense expense : expenses) {
+            total += expense.getAmount().doubleValue();
+        }
+
+        BigDecimal totalBigDecimal = new BigDecimal(total);
+        return totalBigDecimal;
     }
 }

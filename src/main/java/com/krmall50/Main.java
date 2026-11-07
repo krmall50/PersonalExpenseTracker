@@ -31,8 +31,9 @@ public class Main {
         CategoryService cs = new CategoryService(repoC);
         ExpenseService es = new ExpenseService(repoE);
 
-        expense.setdescription("updated d1 2");
-        expense.setCategoryId(23);
-        es.updateExpense(expense);
+        // expense.setdescription("updated d1 2");
+        // expense.setCategoryId(23);
+        // es.updateExpense(expense);
+        System.out.println(es.totalExpenses());
     }
 }
