@@ -46,4 +46,19 @@ public class ExpenseServiceTest {
         assertTrue(id != null);
     }
 
+    @Test
+    void deleteExpenseTest() {
+        LocalDate date = LocalDate.now();
+        BigDecimal amount = new BigDecimal(1);
+        Expense expense = new Expense("test", amount, date, 1);
+        Integer idAdded = expenseService.addExpense(expense);
+        Integer idDeleted = expenseService.deleteExpense(idAdded);
+        assertEquals(idAdded, idDeleted);
+    }
+
+    @Test
+    void deleteNonExistingExpenseTest() {
+        Integer idDeleted = expenseService.deleteExpense(1);
+        assertEquals(null, idDeleted);
+    }
 }

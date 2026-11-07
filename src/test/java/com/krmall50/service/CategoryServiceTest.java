@@ -60,7 +60,6 @@ public class CategoryServiceTest {
 
     @Test
     void deleteNonExistingCategoryTest() {
-
         Integer id = categoryService.deleteCategory(1);
         assertEquals(null, id);
     }
