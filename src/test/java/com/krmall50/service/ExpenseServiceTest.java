@@ -68,4 +68,18 @@ public class ExpenseServiceTest {
         Integer idDeleted = expenseService.deleteExpense(1);
         assertEquals(null, idDeleted);
     }
+
+    @Test
+    void findExpenseByIdTest() {
+        Category category = new Category("test", "test");
+        Integer categoryid = categoryService.addCategory(category);
+
+        LocalDate date = LocalDate.now();
+        BigDecimal amount = new BigDecimal(1);
+        Expense expense = new Expense("test", amount, date, categoryid);
+        Integer idAdded = expenseService.addExpense(expense);
+
+        Integer idFound = expenseService.findExpenseById(idAdded).getId();
+        assertEquals(idAdded, idFound);
+    }
 }
