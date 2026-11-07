@@ -12,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.krmall50.config.DatabaseConfig;
+import com.krmall50.model.Category;
 import com.krmall50.model.Expense;
 import com.krmall50.repo.CategoryRepository;
 import com.krmall50.repo.ExpenseRepository;
@@ -38,9 +39,12 @@ public class ExpenseServiceTest {
 
     @Test
     void addExpenseTest() {
+        Category category = new Category("test", "test");
+        Integer categoryid = categoryService.addCategory(category);
+
         LocalDate date = LocalDate.now();
         BigDecimal amount = new BigDecimal(1);
-        Expense expense = new Expense("test", amount, date, 1);
+        Expense expense = new Expense("test", amount, date, categoryid);
         Integer id = expenseService.addExpense(expense);
 
         assertTrue(id != null);
@@ -48,9 +52,12 @@ public class ExpenseServiceTest {
 
     @Test
     void deleteExpenseTest() {
+        Category category = new Category("test", "test");
+        Integer categoryid = categoryService.addCategory(category);
+
         LocalDate date = LocalDate.now();
         BigDecimal amount = new BigDecimal(1);
-        Expense expense = new Expense("test", amount, date, 1);
+        Expense expense = new Expense("test", amount, date, categoryid);
         Integer idAdded = expenseService.addExpense(expense);
         Integer idDeleted = expenseService.deleteExpense(idAdded);
         assertEquals(idAdded, idDeleted);
