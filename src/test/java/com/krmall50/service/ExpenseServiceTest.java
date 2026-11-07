@@ -110,4 +110,22 @@ public class ExpenseServiceTest {
         int size = expenseService.findAllExpensesByCategoryId(categoryid).size();
         assertEquals(1, size);
     }
+
+    @Test
+    void updateExpenseTest() {
+        Category category = new Category("test", "test");
+        Integer categoryid = categoryService.addCategory(category);
+
+        LocalDate date = LocalDate.now();
+        BigDecimal amount = new BigDecimal(1);
+        Expense expense = new Expense("test", amount, date, categoryid);
+        Integer idAdded = expenseService.addExpense(expense);
+
+        expense.setAmount(new BigDecimal(2));
+        expense.setdescription("updated");
+
+        Integer idUpdated = expenseService.updateExpense(expense);
+
+        assertEquals(idAdded, idUpdated);
+    }
 }
