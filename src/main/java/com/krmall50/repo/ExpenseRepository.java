@@ -53,6 +53,24 @@ public class ExpenseRepository implements Repository<Expense, Integer> {
         }
     };
 
+    public List<Expense> findAllByCategoryId(Integer CategoryId) throws SQLException {
+        List<Expense> expenses = new ArrayList<>();
+        String sql = "select * from expenses where categoryId = ?";
+        try (Connection conn = dataSource.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql);) {
+            ps.setInt(1, CategoryId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                LocalDate date = rs.getDate("date").toLocalDate();
+                Expense expense = new Expense(rs.getInt("id"), rs.getString("description"), rs.getBigDecimal("amount"),
+                        date, rs.getInt("categoryId"));
+                expenses.add(expense);
+            }
+            rs.close();
+            return expenses;
+        }
+    };
+
     public int add(Expense entity) throws SQLException {
         String sql = "insert into expenses (description, amount, date, categoryId) values (?, ?, ?, ?)";
         try (Connection conn = dataSource.getConnection();

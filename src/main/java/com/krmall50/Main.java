@@ -15,7 +15,7 @@ import com.krmall50.service.ExpenseService;
 public class Main {
     public static void main(String[] args) {
         LocalDate date = LocalDate.now();
-        BigDecimal amount = new BigDecimal(7560);
+        BigDecimal amount = new BigDecimal(10000);
 
         CategoryRepository repoC = new CategoryRepository(DatabaseConfig.getDataSource());
         ExpenseRepository repoE = new ExpenseRepository(DatabaseConfig.getDataSource());
@@ -26,14 +26,15 @@ public class Main {
 
         Expense expense = new Expense(99, "e1", amount, date, 21);
         Expense expense1 = new Expense("e2", amount, date, 21);
-        Expense expense2 = new Expense("e3", amount, date, 22);
+        Expense expense5 = new Expense("e6", amount, date, 21);
 
         CategoryService cs = new CategoryService(repoC);
         ExpenseService es = new ExpenseService(repoE);
+        // es.addExpense(expense5);
 
         // expense.setdescription("updated d1 2");
         // expense.setCategoryId(23);
         // es.updateExpense(expense);
-        System.out.println(es.totalExpenses());
+        System.out.println(es.totalExpensesByCategory(45));
     }
 }

@@ -88,6 +88,20 @@ public class ExpenseService {
         }
     }
 
+    public List<Expense> findAllExpensesByCategoryId(Integer categoryId) {
+        try {
+            List<Expense> expenses = repo.findAllByCategoryId(categoryId);
+            if (expenses.size() == 0) {
+                System.out.println("No expenses were added yet to category with id " + categoryId + ".");
+                return null;
+            }
+            return expenses;
+        } catch (SQLException e) {
+            System.out.println("Couldn't get all expenses");
+            return null;
+        }
+    }
+
     public void updateExpense(Expense expense) {
         if (expense.getAmount() == null) {
             System.out.println("Amount cannot be null.");
@@ -119,6 +133,24 @@ public class ExpenseService {
 
     public BigDecimal totalExpenses() {
         List<Expense> expenses = findAllExpenses();
+        if (expenses == null)
+            return null;
+
+        double total = 0;
+
+        for (Expense expense : expenses) {
+            total += expense.getAmount().doubleValue();
+        }
+
+        BigDecimal totalBigDecimal = new BigDecimal(total);
+        return totalBigDecimal;
+    }
+
+    public BigDecimal totalExpensesByCategory(Integer categoryId) {
+        List<Expense> expenses = findAllExpensesByCategoryId(categoryId);
+        if (expenses == null)
+            return null;
+
         double total = 0;
 
         for (Expense expense : expenses) {
