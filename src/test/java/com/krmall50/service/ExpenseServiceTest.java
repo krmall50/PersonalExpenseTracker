@@ -128,4 +128,21 @@ public class ExpenseServiceTest {
 
         assertEquals(idAdded, idUpdated);
     }
+
+    @Test
+    void totalExpensesTest() {
+        Category category = new Category("test", "test");
+        Integer categoryid = categoryService.addCategory(category);
+
+        LocalDate date = LocalDate.now();
+        BigDecimal amount = new BigDecimal(1);
+        BigDecimal expected = new BigDecimal(2);
+        Expense expense = new Expense("test", amount, date, categoryid);
+        Expense expense1 = new Expense("test1", amount, date, categoryid);
+        expenseService.addExpense(expense);
+        expenseService.addExpense(expense1);
+
+        BigDecimal total = expenseService.totalExpenses();
+        assertEquals(expected, total);
+    }
 }
