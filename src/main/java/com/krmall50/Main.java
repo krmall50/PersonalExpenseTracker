@@ -35,6 +35,6 @@ public class Main {
         // expense.setdescription("updated d1 2");
         // expense.setCategoryId(23);
         // es.updateExpense(expense);
-        System.out.println(es.totalExpensesByCategory(45));
+        System.out.println(es.totalExpensesByCategory(21));
     }
 }

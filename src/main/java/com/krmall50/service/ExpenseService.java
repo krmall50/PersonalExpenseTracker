@@ -14,45 +14,52 @@ public class ExpenseService {
         this.repo = repo;
     }
 
-    public void addExpense(Expense expense) {
+    public Integer addExpense(Expense expense) {
         if (expense.getAmount() == null) {
             System.out.println("Amount cannot be null.");
-            return;
+            return null;
         }
         if (expense.getDate() == null) {
             System.out.println("Date cannot be null.");
-            return;
+            return null;
         }
         if (expense.getDescription() == null) {
             System.out.println("Description cannot be null.");
-            return;
+            return null;
         }
         if (expense.getDescription().length() > 255) {
             System.out.println("Description cannot be over 255 characters.");
-            return;
+            return null;
         }
         try {
             int id = repo.add(expense);
             System.out.println("Expense created, id: " + id);
+            return id;
         } catch (SQLException e) {
             System.out.println("Category with id " + expense.getCategoryId() + " does not exist.");
+            return null;
+
         }
     }
 
-    public void deleteExpense(int id) {
+    public Integer deleteExpense(int id) {
         if (id < 0) {
             System.out.println("Enter valid id.");
-            return;
+            return null;
         }
         try {
             int rows = repo.delete(id);
             if (rows == 1) {
                 System.out.println("Expense with id " + id + " was deleted.");
+                return id;
             } else {
                 System.out.println("Expense with id " + id + " does not exist.");
+                return null;
             }
         } catch (SQLException e) {
             System.out.println("Couldn't delete expense.");
+            return null;
+
         }
     }
 
