@@ -96,4 +96,18 @@ public class ExpenseServiceTest {
         int size = expenseService.findAllExpenses().size();
         assertEquals(1, size);
     }
+
+    @Test
+    void findAllExpensesByCategoryIdTest() {
+        Category category = new Category("test", "test");
+        Integer categoryid = categoryService.addCategory(category);
+
+        LocalDate date = LocalDate.now();
+        BigDecimal amount = new BigDecimal(1);
+        Expense expense = new Expense("test", amount, date, categoryid);
+        expenseService.addExpense(expense);
+
+        int size = expenseService.findAllExpensesByCategoryId(categoryid).size();
+        assertEquals(1, size);
+    }
 }
