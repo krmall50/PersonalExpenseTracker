@@ -1,5 +1,7 @@
 package com.krmall50.render;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -20,18 +22,26 @@ public class UserInterface {
         ExpenseService expenseService = new ExpenseService(expenseRepository);
         Scanner sc = new Scanner(System.in);
         int choice = 0;
-        boolean ingore = false;
+        boolean ingoreMessage = false;
+        boolean ignoreChoice = false;
 
         while (choice != 6) {
-            System.out.println(
-                    "1. Get all expences \n2. Get all categories \n3. Get expences by category \n4. Add expense \n5. Add category \n6. Exit");
-            try {
-                choice = Integer.parseInt(sc.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Choose available option 1-6.");
-                ingore = true;
-            } catch (NoSuchElementException e) {
+
+            if (!ignoreChoice) {
+                System.out.println(
+                        "1. Get all expences \n2. Get all categories \n3. Get expences by category \n4. Add expense \n5. Add category \n6. Exit");
+
+                try {
+                    choice = Integer.parseInt(sc.nextLine());
+                } catch (NumberFormatException e) {
+                    System.out.println("Choose available option 1-6.");
+                    ingoreMessage = true;
+                } catch (NoSuchElementException e) {
+                    System.out.println("Choose available option 1-6.");
+                    ingoreMessage = true;
+                }
             }
+
             switch (choice) {
                 case 1:
                     getExpenses(expenseService);
@@ -46,18 +56,55 @@ public class UserInterface {
                         getExpensesByCategory(categoryId, expenseService);
                     } else {
                         System.out.println("Enter valid categoryId");
+                        choice = 3;
+                        ignoreChoice = true;
+                        continue;
                     }
+                case 4:
+                    Integer id = addExpense(sc, expenseService);
+                    if (id == null) {
+                        System.out.println("Enter valid data.");
+                        choice = 4;
+                        ignoreChoice = true;
+                        continue;
+                    }
+                    break;
                 default:
-                    if (!ingore && choice != 6) {
+                    if (!ingoreMessage && choice != 6) {
                         System.out.println("Choose available option 1-6.");
-                        ingore = false;
+                        ingoreMessage = false;
                     }
 
                     break;
             }
-            ingore = false;
+            ingoreMessage = false;
+            ignoreChoice = false;
         }
         sc.close();
+    }
+
+    public static Integer addExpense(Scanner sc, ExpenseService expenseService) {
+        LocalDate date = LocalDate.now();
+        BigDecimal amount;
+        System.out.println("Enter description: ");
+        String desc = sc.nextLine();
+        System.out.println("Enter amount: ");
+
+        Double doubleAmount = readDouble(sc);
+        if (doubleAmount != null) {
+            amount = new BigDecimal(doubleAmount);
+        } else {
+            amount = null;
+        }
+
+        System.out.println("Enter category Id:");
+        Integer categoryId = readInt(sc);
+        if (amount == null || categoryId == null) {
+            return null;
+        }
+        Expense expense = new Expense(desc, amount, date, categoryId);
+        Integer id = expenseService.addExpense(expense);
+        return id;
     }
 
     public static void getExpensesByCategory(Integer id, ExpenseService expenseService) {
@@ -94,5 +141,17 @@ public class UserInterface {
             return null;
         }
         return integer;
+    }
+
+    public static Double readDouble(Scanner sc) {
+        Double d = null;
+        try {
+            d = Double.parseDouble(sc.nextLine());
+        } catch (NumberFormatException e) {
+            return null;
+        } catch (NoSuchElementException e) {
+            return null;
+        }
+        return d;
     }
 }
