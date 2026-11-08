@@ -145,4 +145,30 @@ public class ExpenseServiceTest {
         BigDecimal total = expenseService.totalExpenses();
         assertEquals(expected, total);
     }
+
+    // @Test
+    // void totalExpensesByCategoryTest() {
+    // Category category = new Category("test", "test");
+    // // Category category1 = new Category("test1", "test1");
+
+    // Integer categoryid = categoryService.addCategory(category);
+    // // Integer categoryid1 = categoryService.addCategory(category1);
+
+    // LocalDate date = LocalDate.now();
+    // BigDecimal amount = new BigDecimal(1);
+    // BigDecimal expected = new BigDecimal(2);
+
+    // Expense expense = new Expense("test", amount, date, categoryid);
+    // Expense expense1 = new Expense("test1", amount, date, categoryid);
+
+    // // Expense expense2 = new Expense("test2", amount, date, categoryid1);
+
+    // expenseService.addExpense(expense);
+    // expenseService.addExpense(expense1);
+
+    // // expenseService.addExpense(expense2);
+
+    // BigDecimal total = expenseService.totalExpensesByCategory(categoryid);
+    // assertEquals(expected, total);
+    // }
 }

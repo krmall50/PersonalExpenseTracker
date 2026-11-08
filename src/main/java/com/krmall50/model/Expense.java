@@ -70,4 +70,10 @@ public class Expense {
             this.categoryId = categoryId;
     }
 
+    @Override
+    public String toString() {
+        return "id: " + id + "   |   " + "description: " + description + "   |   " + "amount: " + amount + "   |   "
+                + "date: " + date
+                + "   |   " + "category: " + categoryId;
+    }
 }
