@@ -29,7 +29,7 @@ public class UserInterface {
 
             if (!ignoreChoice) {
                 System.out.println(
-                        "1. Get all expences \n2. Get all categories \n3. Get expences by category \n4. Add expense \n5. Add category \n6. Exit");
+                        "1. Get all expences \n2. Get all categories \n3. Get expences by category \n4. Add expense \n5. Add category \n6. Exit \n7. Calculate total expences \n8. Calculate total by category");
 
                 try {
                     choice = Integer.parseInt(sc.nextLine());
@@ -60,11 +60,31 @@ public class UserInterface {
                         ignoreChoice = true;
                         continue;
                     }
+                    break;
                 case 4:
                     Integer id = addExpense(sc, expenseService);
                     if (id == null) {
                         System.out.println("Enter valid data.");
                         choice = 4;
+                        ignoreChoice = true;
+                        continue;
+                    }
+                    break;
+                case 5:
+                    addCategory(sc, categoryService);
+                    break;
+                case 7:
+                    System.out.println("Total: " + expenseService.totalExpenses());
+                    break;
+                case 8:
+                    System.out.println("Enter category Id:");
+                    Integer categoryId1 = readInt(sc);
+                    if (categoryId1 != null) {
+                        System.out.println("Total in category " + categoryId1 + ": "
+                                + expenseService.totalExpensesByCategory(categoryId1));
+                    } else {
+                        System.out.println("Enter valid categoryId");
+                        choice = 8;
                         ignoreChoice = true;
                         continue;
                     }
@@ -104,6 +124,17 @@ public class UserInterface {
         }
         Expense expense = new Expense(desc, amount, date, categoryId);
         Integer id = expenseService.addExpense(expense);
+        return id;
+    }
+
+    public static Integer addCategory(Scanner sc, CategoryService categoryService) {
+        System.out.println("Enter name: ");
+        String name = sc.nextLine();
+        System.out.println("Enter description: ");
+        String desc = sc.nextLine();
+
+        Category category = new Category(name, desc);
+        Integer id = categoryService.addCategory(category);
         return id;
     }
 
