@@ -21,15 +21,23 @@ public class UserInterface {
         CategoryService categoryService = new CategoryService(categoryRepository);
         ExpenseService expenseService = new ExpenseService(expenseRepository);
         Scanner sc = new Scanner(System.in);
-        int choice = 0;
+        int choice = -1;
         boolean ingoreMessage = false;
         boolean ignoreChoice = false;
 
-        while (choice != 6) {
+        while (choice != 0) {
 
             if (!ignoreChoice) {
                 System.out.println(
-                        "1. Get all expences \n2. Get all categories \n3. Get expences by category \n4. Add expense \n5. Add category \n6. Exit \n7. Calculate total expences \n8. Calculate total by category");
+                        "1. Get all expences \n2. Get all categories" +
+                                "\n3. Get expences by category \n4. Add expense \n5. Add category" +
+                                "\n6. Find expense by id \n7. Find category by id" +
+                                "\n8. Delete Expense \n9. Delete Category" +
+                                "\n10. Update Expense \n11. Update Category" +
+                                "\n12. Calculate last week expenses" +
+                                "\n13. Calculate last month expences" +
+                                "\n14. Calculate total expences" +
+                                "\n15. Calculate total by category");
 
                 try {
                     choice = Integer.parseInt(sc.nextLine());
@@ -73,10 +81,10 @@ public class UserInterface {
                 case 5:
                     addCategory(sc, categoryService);
                     break;
-                case 7:
+                case 14:
                     System.out.println("Total: " + expenseService.totalExpenses());
                     break;
-                case 8:
+                case 15:
                     System.out.println("Enter category Id:");
                     Integer categoryId1 = readInt(sc);
                     if (categoryId1 != null) {
@@ -90,7 +98,7 @@ public class UserInterface {
                     }
                     break;
                 default:
-                    if (!ingoreMessage && choice != 6) {
+                    if (!ingoreMessage && choice != 0) {
                         System.out.println("Choose available option 1-6.");
                         ingoreMessage = false;
                     }

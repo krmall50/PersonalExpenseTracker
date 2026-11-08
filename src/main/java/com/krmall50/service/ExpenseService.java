@@ -2,6 +2,7 @@ package com.krmall50.service;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 import com.krmall50.model.Expense;
@@ -163,6 +164,38 @@ public class ExpenseService {
         double total = 0;
 
         for (Expense expense : expenses) {
+            total += expense.getAmount().doubleValue();
+        }
+
+        BigDecimal totalBigDecimal = new BigDecimal(total);
+        return totalBigDecimal;
+    }
+
+    public BigDecimal totalExpensesLastMonth() {
+        List<Expense> expenses = findAllExpenses();
+        double total = 0;
+        LocalDate nowDate = LocalDate.now();
+
+        List<Expense> expensesLastMonth = expenses.stream()
+                .filter(s -> java.time.temporal.ChronoUnit.DAYS.between(nowDate, s.getDate()) < 30).toList();
+
+        for (Expense expense : expensesLastMonth) {
+            total += expense.getAmount().doubleValue();
+        }
+
+        BigDecimal totalBigDecimal = new BigDecimal(total);
+        return totalBigDecimal;
+    }
+
+    public BigDecimal totalExpensesLastWeek() {
+        List<Expense> expenses = findAllExpenses();
+        double total = 0;
+        LocalDate nowDate = LocalDate.now();
+
+        List<Expense> expensesLastMonth = expenses.stream()
+                .filter(s -> java.time.temporal.ChronoUnit.DAYS.between(nowDate, s.getDate()) < 7).toList();
+
+        for (Expense expense : expensesLastMonth) {
             total += expense.getAmount().doubleValue();
         }
 
