@@ -63,7 +63,7 @@ public class UserInterface {
                     if (categoryId != null) {
                         getExpensesByCategory(categoryId, expenseService);
                     } else {
-                        System.out.println("Enter valid categoryId");
+                        System.out.println("Enter valid category Id");
                         choice = 3;
                         ignoreChoice = true;
                         continue;
@@ -80,6 +80,22 @@ public class UserInterface {
                     break;
                 case 5:
                     addCategory(sc, categoryService);
+                    break;
+                case 6:
+                    System.out.println("Enter expense Id:");
+                    Integer expenseId = readInt(sc);
+
+                    if (expenseId != null) {
+                        Expense expense = getExpenseById(expenseService, expenseId);
+                        if (expense != null) {
+                            System.out.println(expense.toString());
+                        }
+                    } else {
+                        System.out.println("Enter valid Expense Id");
+                        choice = 6;
+                        ignoreChoice = true;
+                        continue;
+                    }
                     break;
                 case 14:
                     System.out.println("Total: " + expenseService.totalExpenses());
@@ -109,6 +125,14 @@ public class UserInterface {
             ignoreChoice = false;
         }
         sc.close();
+    }
+
+    public static Expense getExpenseById(ExpenseService expenseService, Integer id) {
+        Expense expense = expenseService.findExpenseById(id);
+        if (expense != null) {
+            return expense;
+        }
+        return null;
     }
 
     public static Integer addExpense(Scanner sc, ExpenseService expenseService) {

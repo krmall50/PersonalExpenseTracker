@@ -177,7 +177,7 @@ public class ExpenseService {
         LocalDate nowDate = LocalDate.now();
 
         List<Expense> expensesLastMonth = expenses.stream()
-                .filter(s -> java.time.temporal.ChronoUnit.DAYS.between(nowDate, s.getDate()) < 30).toList();
+                .filter(s -> java.time.temporal.ChronoUnit.DAYS.between(s.getDate(), nowDate) < 30).toList();
 
         for (Expense expense : expensesLastMonth) {
             total += expense.getAmount().doubleValue();
@@ -193,7 +193,7 @@ public class ExpenseService {
         LocalDate nowDate = LocalDate.now();
 
         List<Expense> expensesLastMonth = expenses.stream()
-                .filter(s -> java.time.temporal.ChronoUnit.DAYS.between(nowDate, s.getDate()) < 7).toList();
+                .filter(s -> java.time.temporal.ChronoUnit.DAYS.between(s.getDate(), nowDate) < 7).toList();
 
         for (Expense expense : expensesLastMonth) {
             total += expense.getAmount().doubleValue();
