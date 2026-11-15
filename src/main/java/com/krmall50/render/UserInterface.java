@@ -137,6 +137,30 @@ public class UserInterface {
                         continue;
                     }
                     break;
+                case 10:
+                    System.out.println("Enter expense Id:");
+                    Integer expenseUpdateId = readInt(sc);
+                    if (expenseUpdateId != null) {
+                        updateExpense(sc, expenseService, expenseUpdateId);
+                    } else {
+                        System.out.println("Enter valid expense Id");
+                        choice = 10;
+                        ignoreChoice = true;
+                        continue;
+                    }
+                    break;
+                case 11:
+                    System.out.println("Enter category Id:");
+                    Integer categoryUpdateId = readInt(sc);
+                    if (categoryUpdateId != null) {
+                        updateCategory(sc, categoryService, categoryUpdateId);
+                    } else {
+                        System.out.println("Enter valid expense Id");
+                        choice = 11;
+                        ignoreChoice = true;
+                        continue;
+                    }
+                    break;
                 case 14:
                     System.out.println("Total: " + expenseService.totalExpenses());
                     break;
@@ -205,6 +229,55 @@ public class UserInterface {
         Expense expense = new Expense(desc, amount, date, categoryId);
         Integer id = expenseService.addExpense(expense);
         return id;
+    }
+
+    public static Integer updateExpense(Scanner sc, ExpenseService expenseService, Integer id) {
+        Expense expense = expenseService.findExpenseById(id);
+        if (expense == null) {
+            return null;
+        }
+        BigDecimal amount;
+        System.out.println("Enter updated description: ");
+        String desc = sc.nextLine();
+        System.out.println("Enter updated amount: ");
+
+        Double doubleAmount = readDouble(sc);
+        if (doubleAmount != null) {
+            amount = new BigDecimal(doubleAmount);
+        } else {
+            amount = null;
+        }
+
+        System.out.println("Enter updated category Id:");
+        Integer categoryId = readInt(sc);
+        if (amount == null || categoryId == null) {
+            return null;
+        }
+        expense.setAmount(amount);
+        expense.setdescription(desc);
+        expense.setCategoryId(categoryId);
+        expenseService.updateExpense(expense);
+
+        return expense.getId();
+    }
+
+    public static Integer updateCategory(Scanner sc, CategoryService categoryService, Integer id) {
+        Category category = categoryService.findCategoryById(id);
+        if (category == null) {
+            return null;
+        }
+        System.out.println("Enter updated name: ");
+        String name = sc.nextLine();
+        System.out.println("Enter updated description: ");
+        String desc = sc.nextLine();
+        category.setName(name);
+        category.setdescription(desc);
+        Integer result = categoryService.updateCategory(category);
+        if (result == null) {
+            return null;
+        }
+
+        return category.getId();
     }
 
     public static Integer addCategory(Scanner sc, CategoryService categoryService) {
