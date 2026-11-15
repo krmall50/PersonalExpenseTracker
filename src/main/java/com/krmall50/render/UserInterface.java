@@ -37,7 +37,8 @@ public class UserInterface {
                                 "\n12. Calculate last week expenses" +
                                 "\n13. Calculate last month expences" +
                                 "\n14. Calculate total expences" +
-                                "\n15. Calculate total by category");
+                                "\n15. Calculate total by category" +
+                                "\n0. Exit");
 
                 try {
                     choice = Integer.parseInt(sc.nextLine());
@@ -160,6 +161,12 @@ public class UserInterface {
                         ignoreChoice = true;
                         continue;
                     }
+                    break;
+                case 12:
+                    System.out.println("Total expenses last week: " + expenseService.totalExpensesLastWeek());
+                    break;
+                case 13:
+                    System.out.println("Total expenses last month: " + expenseService.totalExpensesLastMonth());
                     break;
                 case 14:
                     System.out.println("Total: " + expenseService.totalExpenses());
