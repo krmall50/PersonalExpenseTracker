@@ -1,8 +1,5 @@
 package com.krmall50.render;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -28,17 +25,7 @@ public class UserInterface {
         while (choice != 0) {
 
             if (!ignoreChoice) {
-                System.out.println(
-                        "1. Get all expences \n2. Get all categories" +
-                                "\n3. Get expences by category \n4. Add expense \n5. Add category" +
-                                "\n6. Find expense by id \n7. Find category by id" +
-                                "\n8. Delete Expense \n9. Delete Category" +
-                                "\n10. Update Expense \n11. Update Category" +
-                                "\n12. Calculate last week expenses" +
-                                "\n13. Calculate last month expences" +
-                                "\n14. Calculate total expences" +
-                                "\n15. Calculate total by category" +
-                                "\n0. Exit");
+                UIFunctions.displayMenu();
 
                 try {
                     choice = Integer.parseInt(sc.nextLine());
@@ -53,16 +40,16 @@ public class UserInterface {
 
             switch (choice) {
                 case 1:
-                    getExpenses(expenseService);
+                    UIFunctions.getExpenses(expenseService);
                     break;
                 case 2:
-                    getCategories(categoryService);
+                    UIFunctions.getCategories(categoryService);
                     break;
                 case 3:
                     System.out.println("Enter category Id:");
-                    Integer categoryId = readInt(sc);
+                    Integer categoryId = UIFunctions.readInt(sc);
                     if (categoryId != null) {
-                        getExpensesByCategory(categoryId, expenseService);
+                        UIFunctions.getExpensesByCategory(categoryId, expenseService);
                     } else {
                         System.out.println("Enter valid category Id");
                         choice = 3;
@@ -71,7 +58,7 @@ public class UserInterface {
                     }
                     break;
                 case 4:
-                    Integer id = addExpense(sc, expenseService);
+                    Integer id = UIFunctions.addExpense(sc, expenseService);
                     if (id == null) {
                         System.out.println("Enter valid data.");
                         choice = 4;
@@ -80,14 +67,14 @@ public class UserInterface {
                     }
                     break;
                 case 5:
-                    addCategory(sc, categoryService);
+                    UIFunctions.addCategory(sc, categoryService);
                     break;
                 case 6:
                     System.out.println("Enter expense Id:");
-                    Integer expenseId = readInt(sc);
+                    Integer expenseId = UIFunctions.readInt(sc);
 
                     if (expenseId != null) {
-                        Expense expense = getExpenseById(expenseService, expenseId);
+                        Expense expense = UIFunctions.getExpenseById(expenseService, expenseId);
                         if (expense != null) {
                             System.out.println(expense.toString());
                         }
@@ -100,10 +87,10 @@ public class UserInterface {
                     break;
                 case 7:
                     System.out.println("Enter category Id:");
-                    Integer categoryGetId = readInt(sc);
+                    Integer categoryGetId = UIFunctions.readInt(sc);
 
                     if (categoryGetId != null) {
-                        Category category = getCategoryById(categoryService, categoryGetId);
+                        Category category = UIFunctions.getCategoryById(categoryService, categoryGetId);
                         if (category != null) {
                             System.out.println(category.toString());
                         }
@@ -116,7 +103,7 @@ public class UserInterface {
                     break;
                 case 8:
                     System.out.println("Enter expense Id:");
-                    Integer expenseDeleteId = readInt(sc);
+                    Integer expenseDeleteId = UIFunctions.readInt(sc);
                     if (expenseDeleteId != null) {
                         expenseService.deleteExpense(expenseDeleteId);
                     } else {
@@ -128,7 +115,7 @@ public class UserInterface {
                     break;
                 case 9:
                     System.out.println("Enter category Id:");
-                    Integer categoryDeleteId = readInt(sc);
+                    Integer categoryDeleteId = UIFunctions.readInt(sc);
                     if (categoryDeleteId != null) {
                         categoryService.deleteCategory(categoryDeleteId);
                     } else {
@@ -140,9 +127,9 @@ public class UserInterface {
                     break;
                 case 10:
                     System.out.println("Enter expense Id:");
-                    Integer expenseUpdateId = readInt(sc);
+                    Integer expenseUpdateId = UIFunctions.readInt(sc);
                     if (expenseUpdateId != null) {
-                        updateExpense(sc, expenseService, expenseUpdateId);
+                        UIFunctions.updateExpense(sc, expenseService, expenseUpdateId);
                     } else {
                         System.out.println("Enter valid expense Id");
                         choice = 10;
@@ -152,9 +139,9 @@ public class UserInterface {
                     break;
                 case 11:
                     System.out.println("Enter category Id:");
-                    Integer categoryUpdateId = readInt(sc);
+                    Integer categoryUpdateId = UIFunctions.readInt(sc);
                     if (categoryUpdateId != null) {
-                        updateCategory(sc, categoryService, categoryUpdateId);
+                        UIFunctions.updateCategory(sc, categoryService, categoryUpdateId);
                     } else {
                         System.out.println("Enter valid expense Id");
                         choice = 11;
@@ -173,7 +160,7 @@ public class UserInterface {
                     break;
                 case 15:
                     System.out.println("Enter category Id:");
-                    Integer categoryId1 = readInt(sc);
+                    Integer categoryId1 = UIFunctions.readInt(sc);
                     if (categoryId1 != null) {
                         System.out.println("Total in category " + categoryId1 + ": "
                                 + expenseService.totalExpensesByCategory(categoryId1));
@@ -196,153 +183,5 @@ public class UserInterface {
             ignoreChoice = false;
         }
         sc.close();
-    }
-
-    public static Expense getExpenseById(ExpenseService expenseService, Integer id) {
-        Expense expense = expenseService.findExpenseById(id);
-        if (expense != null) {
-            return expense;
-        }
-        return null;
-    }
-
-    public static Category getCategoryById(CategoryService categoryService, Integer id) {
-        Category category = categoryService.findCategoryById(id);
-        if (category != null) {
-            return category;
-        }
-        return null;
-    }
-
-    public static Integer addExpense(Scanner sc, ExpenseService expenseService) {
-        LocalDate date = LocalDate.now();
-        BigDecimal amount;
-        System.out.println("Enter description: ");
-        String desc = sc.nextLine();
-        System.out.println("Enter amount: ");
-
-        Double doubleAmount = readDouble(sc);
-        if (doubleAmount != null) {
-            amount = new BigDecimal(doubleAmount);
-        } else {
-            amount = null;
-        }
-
-        System.out.println("Enter category Id:");
-        Integer categoryId = readInt(sc);
-        if (amount == null || categoryId == null) {
-            return null;
-        }
-        Expense expense = new Expense(desc, amount, date, categoryId);
-        Integer id = expenseService.addExpense(expense);
-        return id;
-    }
-
-    public static Integer updateExpense(Scanner sc, ExpenseService expenseService, Integer id) {
-        Expense expense = expenseService.findExpenseById(id);
-        if (expense == null) {
-            return null;
-        }
-        BigDecimal amount;
-        System.out.println("Enter updated description: ");
-        String desc = sc.nextLine();
-        System.out.println("Enter updated amount: ");
-
-        Double doubleAmount = readDouble(sc);
-        if (doubleAmount != null) {
-            amount = new BigDecimal(doubleAmount);
-        } else {
-            amount = null;
-        }
-
-        System.out.println("Enter updated category Id:");
-        Integer categoryId = readInt(sc);
-        if (amount == null || categoryId == null) {
-            return null;
-        }
-        expense.setAmount(amount);
-        expense.setdescription(desc);
-        expense.setCategoryId(categoryId);
-        expenseService.updateExpense(expense);
-
-        return expense.getId();
-    }
-
-    public static Integer updateCategory(Scanner sc, CategoryService categoryService, Integer id) {
-        Category category = categoryService.findCategoryById(id);
-        if (category == null) {
-            return null;
-        }
-        System.out.println("Enter updated name: ");
-        String name = sc.nextLine();
-        System.out.println("Enter updated description: ");
-        String desc = sc.nextLine();
-        category.setName(name);
-        category.setdescription(desc);
-        Integer result = categoryService.updateCategory(category);
-        if (result == null) {
-            return null;
-        }
-
-        return category.getId();
-    }
-
-    public static Integer addCategory(Scanner sc, CategoryService categoryService) {
-        System.out.println("Enter name: ");
-        String name = sc.nextLine();
-        System.out.println("Enter description: ");
-        String desc = sc.nextLine();
-
-        Category category = new Category(name, desc);
-        Integer id = categoryService.addCategory(category);
-        return id;
-    }
-
-    public static void getExpensesByCategory(Integer id, ExpenseService expenseService) {
-        List<Expense> expenses = expenseService.findAllExpensesByCategoryId(id);
-        if (expenses != null) {
-            System.out.println("All expenses in category with id " + id + ":");
-            expenses.stream().forEach(s -> System.out.println(s.toString()));
-        }
-    }
-
-    public static void getExpenses(ExpenseService expenseService) {
-        List<Expense> expenses = expenseService.findAllExpenses();
-        if (expenses != null) {
-            System.out.println("All expenses:");
-            expenses.stream().forEach(s -> System.out.println(s.toString()));
-        }
-    }
-
-    public static void getCategories(CategoryService categoryService) {
-        List<Category> categories = categoryService.findAllCategories();
-        if (categories != null) {
-            System.out.println("All categories:");
-            categories.stream().forEach(s -> System.out.println(s.toString()));
-        }
-    }
-
-    public static Integer readInt(Scanner sc) {
-        Integer integer = null;
-        try {
-            integer = Integer.parseInt(sc.nextLine());
-        } catch (NumberFormatException e) {
-            return null;
-        } catch (NoSuchElementException e) {
-            return null;
-        }
-        return integer;
-    }
-
-    public static Double readDouble(Scanner sc) {
-        Double d = null;
-        try {
-            d = Double.parseDouble(sc.nextLine());
-        } catch (NumberFormatException e) {
-            return null;
-        } catch (NoSuchElementException e) {
-            return null;
-        }
-        return d;
     }
 }
