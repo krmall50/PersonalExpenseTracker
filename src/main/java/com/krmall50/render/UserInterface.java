@@ -97,6 +97,22 @@ public class UserInterface {
                         continue;
                     }
                     break;
+                case 7:
+                    System.out.println("Enter category Id:");
+                    Integer categoryGetId = readInt(sc);
+
+                    if (categoryGetId != null) {
+                        Category category = getCategoryById(categoryService, categoryGetId);
+                        if (category != null) {
+                            System.out.println(category.toString());
+                        }
+                    } else {
+                        System.out.println("Enter valid category Id");
+                        choice = 7;
+                        ignoreChoice = true;
+                        continue;
+                    }
+                    break;
                 case 14:
                     System.out.println("Total: " + expenseService.totalExpenses());
                     break;
@@ -131,6 +147,14 @@ public class UserInterface {
         Expense expense = expenseService.findExpenseById(id);
         if (expense != null) {
             return expense;
+        }
+        return null;
+    }
+
+    public static Category getCategoryById(CategoryService categoryService, Integer id) {
+        Category category = categoryService.findCategoryById(id);
+        if (category != null) {
+            return category;
         }
         return null;
     }
