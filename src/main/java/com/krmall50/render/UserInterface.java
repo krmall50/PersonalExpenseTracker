@@ -113,6 +113,30 @@ public class UserInterface {
                         continue;
                     }
                     break;
+                case 8:
+                    System.out.println("Enter expense Id:");
+                    Integer expenseDeleteId = readInt(sc);
+                    if (expenseDeleteId != null) {
+                        expenseService.deleteExpense(expenseDeleteId);
+                    } else {
+                        System.out.println("Enter valid expense Id");
+                        choice = 8;
+                        ignoreChoice = true;
+                        continue;
+                    }
+                    break;
+                case 9:
+                    System.out.println("Enter category Id:");
+                    Integer categoryDeleteId = readInt(sc);
+                    if (categoryDeleteId != null) {
+                        categoryService.deleteCategory(categoryDeleteId);
+                    } else {
+                        System.out.println("Enter valid category Id");
+                        choice = 9;
+                        ignoreChoice = true;
+                        continue;
+                    }
+                    break;
                 case 14:
                     System.out.println("Total: " + expenseService.totalExpenses());
                     break;
