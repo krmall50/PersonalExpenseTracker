@@ -85,10 +85,6 @@ public class ExpenseService {
     public List<Expense> findAllExpenses() {
         try {
             List<Expense> expenses = repo.findAll();
-            if (expenses.size() == 0) {
-                System.out.println("No expenses were added yet.");
-                return null;
-            }
             return expenses;
         } catch (SQLException e) {
             System.out.println("Couldn't get all expenses");
