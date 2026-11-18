@@ -33,6 +33,7 @@ public class ExpenseRepository implements Repository<Expense, Integer> {
                         rs.getInt("categoryId"));
                 return expense;
             }
+            rs.close();
             return null;
         }
     };
