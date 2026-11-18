@@ -79,7 +79,7 @@ public class ExpenseRepositoryTest {
 
         Expense expense = new Expense("test description", amount, date, Categoryid);
         repoExpense.add(expense);
-        expense.setdescription("updated");
+        expense.setDescription("updated");
         expense.setAmount(new BigDecimal(124));
         int result = repoExpense.update(expense);
 
@@ -94,7 +94,7 @@ public class ExpenseRepositoryTest {
         int Categoryid = categoryRepository.add(category);
 
         Expense expense = new Expense("test description", amount, date, Categoryid);
-        expense.setdescription("updated");
+        expense.setDescription("updated");
         expense.setAmount(new BigDecimal(124));
         int result = repoExpense.update(expense);
 
