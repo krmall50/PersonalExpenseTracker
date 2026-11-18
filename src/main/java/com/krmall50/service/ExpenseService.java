@@ -146,14 +146,13 @@ public class ExpenseService {
         if (expenses == null)
             return null;
 
-        double total = 0;
+        BigDecimal total = BigDecimal.ZERO;
 
         for (Expense expense : expenses) {
-            total += expense.getAmount().doubleValue();
+            total = total.add(expense.getAmount());
         }
 
-        BigDecimal totalBigDecimal = new BigDecimal(total);
-        return totalBigDecimal;
+        return total;
     }
 
     public BigDecimal totalExpensesByCategory(Integer categoryId) {
@@ -161,45 +160,42 @@ public class ExpenseService {
         if (expenses == null)
             return null;
 
-        double total = 0;
+        BigDecimal total = BigDecimal.ZERO;
 
         for (Expense expense : expenses) {
-            total += expense.getAmount().doubleValue();
+            total = total.add(expense.getAmount());
         }
 
-        BigDecimal totalBigDecimal = new BigDecimal(total);
-        return totalBigDecimal;
+        return total;
     }
 
     public BigDecimal totalExpensesLastMonth() {
         List<Expense> expenses = findAllExpenses();
-        double total = 0;
+        BigDecimal total = BigDecimal.ZERO;
         LocalDate nowDate = LocalDate.now();
 
         List<Expense> expensesLastMonth = expenses.stream()
                 .filter(s -> java.time.temporal.ChronoUnit.DAYS.between(s.getDate(), nowDate) < 30).toList();
 
         for (Expense expense : expensesLastMonth) {
-            total += expense.getAmount().doubleValue();
+            total = total.add(expense.getAmount());
         }
 
-        BigDecimal totalBigDecimal = new BigDecimal(total);
-        return totalBigDecimal;
+        return total;
     }
 
     public BigDecimal totalExpensesLastWeek() {
         List<Expense> expenses = findAllExpenses();
-        double total = 0;
+        BigDecimal total = BigDecimal.ZERO;
         LocalDate nowDate = LocalDate.now();
 
-        List<Expense> expensesLastMonth = expenses.stream()
+        List<Expense> expensesLastWeek = expenses.stream()
                 .filter(s -> java.time.temporal.ChronoUnit.DAYS.between(s.getDate(), nowDate) < 7).toList();
 
-        for (Expense expense : expensesLastMonth) {
-            total += expense.getAmount().doubleValue();
+        for (Expense expense : expensesLastWeek) {
+            total = total.add(expense.getAmount());
         }
 
-        BigDecimal totalBigDecimal = new BigDecimal(total);
-        return totalBigDecimal;
+        return total;
     }
 }
