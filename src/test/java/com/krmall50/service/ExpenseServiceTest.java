@@ -136,13 +136,13 @@ public class ExpenseServiceTest {
 
         LocalDate date = LocalDate.now();
         BigDecimal amount = new BigDecimal(1);
-        BigDecimal expected = new BigDecimal(2);
+        BigDecimal expected = BigDecimal.valueOf(2);
         Expense expense = new Expense("test", amount, date, categoryid);
         Expense expense1 = new Expense("test1", amount, date, categoryid);
         expenseService.addExpense(expense);
         expenseService.addExpense(expense1);
-
         BigDecimal total = expenseService.totalExpenses();
-        assertEquals(expected, total);
+
+        assertEquals(0, expected.compareTo(total));
     }
 }

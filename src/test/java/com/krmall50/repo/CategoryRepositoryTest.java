@@ -66,7 +66,6 @@ public class CategoryRepositoryTest {
 
         category.setName("updated test");
         category.setdescription("updated test description");
-        repo.add(category);
         int result = repo.update(category);
         assertEquals(1, result);
     }
