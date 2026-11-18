@@ -50,9 +50,8 @@ public class Expense {
             this.id = id;
     }
 
-    public void setdescription(String description) {
-        if (!description.equals(null))
-            this.description = description;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public void setDate(LocalDate date) {

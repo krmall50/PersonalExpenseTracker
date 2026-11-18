@@ -122,7 +122,7 @@ public class ExpenseServiceTest {
         Integer idAdded = expenseService.addExpense(expense);
 
         expense.setAmount(new BigDecimal(2));
-        expense.setdescription("updated");
+        expense.setDescription("updated");
 
         Integer idUpdated = expenseService.updateExpense(expense);
 

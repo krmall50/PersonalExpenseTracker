@@ -90,7 +90,7 @@ public class UIFunctions {
             return null;
         }
         expense.setAmount(amount);
-        expense.setdescription(desc);
+        expense.setDescription(desc);
         expense.setCategoryId(categoryId);
         expenseService.updateExpense(expense);
 
