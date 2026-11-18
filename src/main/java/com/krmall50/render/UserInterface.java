@@ -3,6 +3,8 @@ package com.krmall50.render;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+import javax.sql.DataSource;
+
 import com.krmall50.config.DatabaseConfig;
 import com.krmall50.model.Category;
 import com.krmall50.model.Expense;
@@ -13,8 +15,9 @@ import com.krmall50.service.ExpenseService;
 
 public class UserInterface {
     public static void run() {
-        CategoryRepository categoryRepository = new CategoryRepository(DatabaseConfig.getDataSource());
-        ExpenseRepository expenseRepository = new ExpenseRepository(DatabaseConfig.getDataSource());
+        DataSource dataSource = DatabaseConfig.getDataSource();
+        CategoryRepository categoryRepository = new CategoryRepository(dataSource);
+        ExpenseRepository expenseRepository = new ExpenseRepository(dataSource);
         CategoryService categoryService = new CategoryService(categoryRepository);
         ExpenseService expenseService = new ExpenseService(expenseRepository);
         Scanner sc = new Scanner(System.in);

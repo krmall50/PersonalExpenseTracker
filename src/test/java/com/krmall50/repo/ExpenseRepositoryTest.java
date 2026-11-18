@@ -8,6 +8,8 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
+import javax.sql.DataSource;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,11 +22,13 @@ import com.krmall50.model.Expense;
 public class ExpenseRepositoryTest {
     ExpenseRepository repoExpense;
     CategoryRepository categoryRepository;
+    DataSource dataSource;
 
     @BeforeEach
     void setUp() {
-        repoExpense = new ExpenseRepository(DatabaseConfig.getDataSourceTest());
-        categoryRepository = new CategoryRepository(DatabaseConfig.getDataSourceTest());
+        dataSource = DatabaseConfig.getDataSourceTest();
+        repoExpense = new ExpenseRepository(dataSource);
+        categoryRepository = new CategoryRepository(dataSource);
     }
 
     @AfterEach
