@@ -85,6 +85,10 @@ public class ExpenseService {
     public List<Expense> findAllExpenses() {
         try {
             List<Expense> expenses = repo.findAll();
+            if (expenses.size() == 0) {
+                System.out.println("No expenses were added yet.");
+                return expenses;
+            }
             return expenses;
         } catch (SQLException e) {
             System.out.println("Couldn't get all expenses");
@@ -97,7 +101,7 @@ public class ExpenseService {
             List<Expense> expenses = repo.findAllByCategoryId(categoryId);
             if (expenses.size() == 0) {
                 System.out.println("No expenses were added yet to category with id " + categoryId + ".");
-                return null;
+                return expenses;
             }
             return expenses;
         } catch (SQLException e) {

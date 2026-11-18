@@ -99,7 +99,7 @@ public class CategoryService {
             List<Category> categories = repo.findAll();
             if (categories.size() == 0) {
                 System.out.println("No categories were added yet.");
-                return null;
+                return categories;
             }
             return categories;
         } catch (SQLException e) {
