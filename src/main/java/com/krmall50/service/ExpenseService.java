@@ -173,9 +173,11 @@ public class ExpenseService {
         List<Expense> expenses = findAllExpenses();
         BigDecimal total = BigDecimal.ZERO;
         LocalDate nowDate = LocalDate.now();
+        LocalDate startDate = nowDate.minusDays(30);
 
         List<Expense> expensesLastMonth = expenses.stream()
-                .filter(s -> java.time.temporal.ChronoUnit.DAYS.between(s.getDate(), nowDate) < 30).toList();
+                .filter(s -> !s.getDate().isBefore(startDate))
+                .filter(s -> !s.getDate().isAfter(nowDate)).toList();
 
         for (Expense expense : expensesLastMonth) {
             total = total.add(expense.getAmount());
@@ -188,9 +190,11 @@ public class ExpenseService {
         List<Expense> expenses = findAllExpenses();
         BigDecimal total = BigDecimal.ZERO;
         LocalDate nowDate = LocalDate.now();
+        LocalDate startDate = nowDate.minusDays(7);
 
         List<Expense> expensesLastWeek = expenses.stream()
-                .filter(s -> java.time.temporal.ChronoUnit.DAYS.between(s.getDate(), nowDate) < 7).toList();
+                .filter(s -> !s.getDate().isBefore(startDate))
+                .filter(s -> !s.getDate().isAfter(nowDate)).toList();
 
         for (Expense expense : expensesLastWeek) {
             total = total.add(expense.getAmount());
