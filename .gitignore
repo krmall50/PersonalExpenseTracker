@@ -1,5 +1,5 @@
 .vscode/
 target/
-
+.idea
 .env
 .class
