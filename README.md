@@ -234,4 +234,4 @@ The project demonstrates practical application of:
 
 ## Author
 
-Developed as a personal Java backend learning project to practice JDBC, PostgreSQL, Maven, generics, software architecture, and automated testing.
+Developed as a personal Java backend learning project to practice JDBC, PostgreSQL, Maven, generics, software architecture, and automated testing with JUnit 5.
